@@ -18,6 +18,7 @@ class MonthPicker extends React.Component {
   }
   handleClick = (event) => {
     if (this.node.contains(event.target)) {
+      console.log(event.target)
       return;
     }
     this.setState({

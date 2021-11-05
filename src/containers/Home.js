@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { LIST_VIEW, CHART_VIEW } from '../utility'
+import { LIST_VIEW, CHART_VIEW, TYPE_INCOME, TYPE_OUTCOME, Colors } from '../utility'
 import MonthPicker from '../components/MonthPicker.js'
 import withContext from '../withContext'
 import TotalPrice from '../components/TotalPrice'
 import PriceList from '../components/PriceList'
 import ViewTab from '../components/ViewTab'
 import CreateBtn from '../components/CreateBtn'
-import logo from '../logo.svg';
+import logo from '../logo.svg'
 import Loader from '../components/Loader'
 //方便拓展，这里做成一个数组，并且重构ViewTab组件
 const tabsView = [LIST_VIEW, CHART_VIEW]
@@ -17,10 +17,13 @@ class Home extends Component {
     this.state = {
       tabView: tabsView[0]
     }
+    this.onChangeDate = (year, month) => {
+      this.props.actions.selectNewMonth(year, month)
+    }
   }
   render () {
     const { data } = this.props
-    const { isLoading } = data
+    const { items, categories, currentDate, isLoading } = data
     const { tabView } = this.state
     return (
       <React.Fragment>
@@ -32,21 +35,32 @@ class Home extends Component {
           <div className="row">
             <div className="col">
               <MonthPicker
-                year={2021}
-                month={11}
-                onchange={() => { }}
-              >
+                year={currentDate.year}
+                month={currentDate.month}
+                onChange={this.onChangeDate}>
 
               </MonthPicker>
             </div>
             <div className="col">
-              <TotalPrice income={100} outcome={500}>
+              <TotalPrice>
 
               </TotalPrice>
             </div>
           </div>
         </div>
-
+        <div className="content-area py-3 px-3">
+          {isLoading && <Loader></Loader>}
+          {!isLoading &&
+            <React.Fragment>
+              <ViewTab></ViewTab>
+              <CreateBtn></CreateBtn>
+              {
+                tabView === LIST_VIEW &&
+                <></>
+              }
+            </React.Fragment>
+          }
+        </div>
       </React.Fragment >
     )
   }
