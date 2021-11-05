@@ -11,6 +11,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-ionicons": "2.1.6",
+    "react-router-dom": "^6.0.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
@@ -20,7 +21,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "mock": "json-server --watch db.json --port 3004",
+    "dev": "concurrently \" yarn start \" \" yarn mock \""
   },
   "eslintConfig": {
     "extends": [
