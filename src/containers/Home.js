@@ -17,14 +17,26 @@ class Home extends Component {
     this.state = {
       tabView: tabsView[0]
     }
-    this.onChangeDate = (year, month) => {
-      this.props.actions.selectNewMonth(year, month)
-    }
+
+  }
+  componentDidMount () {
+    this.props.actions.getInitalData()
+    console.log(this.props.data.items[1]);
+  }
+  onChangeDate = (year, month) => {
+    this.props.actions.selectNewMonth(year, month)
   }
   render () {
     const { data } = this.props
     const { items, categories, currentDate, isLoading } = data
+    console.log(items, categories);
     const { tabView } = this.state
+    //操作不可变值
+    const itemsWithCategory = Object.keys(items).map(id => {
+      items[id].category = categories[items[id].cid]
+      return items[id]
+    })
+    console.log(itemsWithCategory);
     return (
       <React.Fragment>
         <div className="App-header">
@@ -32,7 +44,7 @@ class Home extends Component {
             <img src={logo} className="App-logo" alt="logo">
             </img>
           </div>
-          <div className="row">
+          <div className="row align-items-center">
             <div className="col">
               <MonthPicker
                 year={currentDate.year}
@@ -41,10 +53,12 @@ class Home extends Component {
 
               </MonthPicker>
             </div>
-            <div className="col">
+            <div className="col ">
+
               <TotalPrice>
 
               </TotalPrice>
+
             </div>
           </div>
         </div>
@@ -52,11 +66,32 @@ class Home extends Component {
           {isLoading && <Loader></Loader>}
           {!isLoading &&
             <React.Fragment>
-              <ViewTab></ViewTab>
-              <CreateBtn></CreateBtn>
+              <ViewTab activeTab={this.state.tabView}
+                onTabChange={(value) => {
+                  this.setState({
+                    tabView: value
+                  })
+                }}></ViewTab>
+              <CreateBtn onClick={() => { this.props.history.push('/create') }}></CreateBtn>
               {
-                tabView === LIST_VIEW &&
-                <></>
+                tabView === LIST_VIEW && itemsWithCategory.length > 0 &&
+                <PriceList
+                  items={itemsWithCategory}
+                  onModifyItem={this.modifyItem}
+                  onDeleteItem={this.deleteItem}
+                ></PriceList>
+              }
+              {
+                tabView === LIST_VIEW && itemsWithCategory.length === 0 &&
+                <div className="alert alert-light text-center no-record">
+                  您还没有任何记账记录
+                </div>
+              }
+              {
+                tabView === CHART_VIEW &&
+                <div >
+                  这里是图表区域
+                </div>
               }
             </React.Fragment>
           }

@@ -16,7 +16,7 @@ class App extends React.Component {
       items: {},
       categories: {},
       isLoading: false,
-      currentDate: parseToYearAndMonth()
+      currentDate: parseToYearAndMonth("2021-11")
     }
     const withLoading = (cb) => {
       return (...args) => {
@@ -26,27 +26,31 @@ class App extends React.Component {
     }
     this.actions = {
       getInitalData: async () => {
-        const { currentDate } = this.date
+        const { currentDate } = this.state
         const getURLWithData = `/items?monthCategory=${currentDate.year}-${currentDate.month}`
         const results = await Promise.all([axios.get('/categories'), axios.get(getURLWithData)])
         const [categories, items] = results
         this.setState({
           items: flatternArr(items.data),
-          categories: flatternArr(items.data),
+          categories: flatternArr(categories.data),
           isLoading: false
         })
         return { items, categories }
+      },
+      selectNewMonth: withLoading(async (year, month) => {
+        //开启loading之后
+        //重新获取数据，发送网络请求
+        const getURLWithData = `/items?monthCategory=${year}-${month}&_sort=timestamp&_order=desc`
+        const items = await axios.get(getURLWithData)
 
-
-
-      }
-      ,
-
-
-
-
-      selectNewMonth: withLoading((year, month) => {
-
+        this.setState({
+          items: flatternArr(items.data),
+          currentDate: {
+            year, month
+          },
+          isLoading: false
+        })
+        return items
       })
     }
 
@@ -55,6 +59,7 @@ class App extends React.Component {
 
   }
   render () {
+
     return (
       <AppContext.Provider value={{
         state: this.state,
