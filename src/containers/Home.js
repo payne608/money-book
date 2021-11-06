@@ -29,14 +29,14 @@ class Home extends Component {
   render () {
     const { data } = this.props
     const { items, categories, currentDate, isLoading } = data
-    console.log(items, categories);
+    console.log(isLoading);
     const { tabView } = this.state
     //操作不可变值
     const itemsWithCategory = Object.keys(items).map(id => {
       items[id].category = categories[items[id].cid]
       return items[id]
     })
-    console.log(itemsWithCategory);
+
     return (
       <React.Fragment>
         <div className="App-header">
@@ -63,7 +63,7 @@ class Home extends Component {
           </div>
         </div>
         <div className="content-area py-3 px-3">
-          {isLoading && <Loader></Loader>}
+          {isLoading && <Loader />}
           {!isLoading &&
             <React.Fragment>
               <ViewTab activeTab={this.state.tabView}
