@@ -13,7 +13,7 @@ const CreateBtn = ({ onClick }) => (
       color='#fff'
       icon='ios-add-circle'
     />
-    创建一条新的记账记录
+    <div className="sm">创建一条新的记账记录</div>
   </button>
 )
 

@@ -16,7 +16,7 @@ class App extends React.Component {
       items: {},
       categories: {},
       isLoading: false,
-      currentDate: parseToYearAndMonth("2021-11")
+      currentDate: parseToYearAndMonth("2021-12")
     }
     const withLoading = (cb) => {
       return (...args) => {
@@ -52,6 +52,15 @@ class App extends React.Component {
           isLoading: false
         })
         return items
+      }),
+      deleteItem: withLoading((item) => {
+        axios.delete(`/items?id=${item.id}`)
+        const itemsCopy = JSON.parse(JSON.stringify(this.state.items))
+        delete itemsCopy[item.id]
+        this.setState({
+          items: itemsCopy,
+          isLoading: false
+        })
       })
     }
 

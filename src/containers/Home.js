@@ -17,7 +17,6 @@ class Home extends Component {
     this.state = {
       tabView: tabsView[0]
     }
-
   }
   componentDidMount () {
     this.props.actions.getInitalData()
@@ -26,6 +25,13 @@ class Home extends Component {
   onChangeDate = (year, month) => {
     this.props.actions.selectNewMonth(year, month)
   }
+  modifyItem = (item) => {
+    this.history.push(`/edit:${item.id}`)
+  }
+  deleteItem = (item) => {
+    this.props.actions.deleteItem(item)
+  }
+  handleClick = () => { this.props.history.push('/create') }
   render () {
     const { data } = this.props
     const { items, categories, currentDate, isLoading } = data
@@ -35,6 +41,14 @@ class Home extends Component {
     const itemsWithCategory = Object.keys(items).map(id => {
       items[id].category = categories[items[id].cid]
       return items[id]
+    })
+    let totalIncome = 0, totalOutcome = 0
+    itemsWithCategory.forEach(item => {
+      if (item.category.type === TYPE_OUTCOME) {
+        totalOutcome += item.price
+      } else {
+        totalIncome += item.price
+      }
     })
 
     return (
@@ -55,7 +69,7 @@ class Home extends Component {
             </div>
             <div className="col ">
 
-              <TotalPrice>
+              <TotalPrice income={totalIncome} outcome={totalOutcome}>
 
               </TotalPrice>
 
@@ -72,7 +86,7 @@ class Home extends Component {
                     tabView: value
                   })
                 }}></ViewTab>
-              <CreateBtn onClick={() => { this.props.history.push('/create') }}></CreateBtn>
+              <CreateBtn onClick={this.handleClick}></CreateBtn>
               {
                 tabView === LIST_VIEW && itemsWithCategory.length > 0 &&
                 <PriceList
