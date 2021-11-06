@@ -89,7 +89,7 @@ class Home extends Component {
               }
               {
                 tabView === CHART_VIEW &&
-                <div >
+                <div className="h1" >
                   这里是图表区域
                 </div>
               }

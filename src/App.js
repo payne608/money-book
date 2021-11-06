@@ -67,7 +67,7 @@ class App extends React.Component {
         actions: this.actions
       }}>
         <Router>
-          <div className="App">
+          <div className="App sm">
             <div className="container pb-5">
               <Route exact path="/" component={Home} />
               <Route path="/create" component={Create} />
