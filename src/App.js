@@ -8,6 +8,7 @@ import { AppContext } from './AppContext'
 import { flatternArr, parseToYearAndMonth, ID } from './utility'
 import axios from 'axios'
 
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -61,12 +62,39 @@ class App extends React.Component {
           items: itemsCopy,
           isLoading: false
         })
+      }),
+      getEditData: withLoading(async (id) => {
+        //根据id获取数据
+        //如果有就不用获取了,如果没有就获取
+        const { items, categories } = this.state
+        const promises = []
+        if (!items[id]) {
+          //如果找不到该item，那么需要发送网络请求
+          ///items?id=${id}返回的是一个数组，但是/items/${id}返回的是一个对象
+          promises.push(axios.get(`/items/${id}`))
+        } else {
+          promises.push(new Promise(resolve => resolve(null)))
+        }
+        if (Object.keys(categories).length === 0) {
+          promises.push(axios.get('/categories'))
+        } else {
+          promises.push(new Promise(resolve => resolve(null)))
+        }
+        const [editItem, fetchedCategories] = await Promise.all(promises)
+        //editItem有可能取不到
+        //取到了分两种情况，app.js中已经取到和通过Create.js发送网络请求得到
+        const finaEditItem = editItem ? editItem.data : items[id]
+        const finalCategories = fetchedCategories ? flatternArr(fetchedCategories.data) : categories
+        this.setState({
+          isLoading: false
+        })
+
+        return {
+          editItem: finaEditItem,
+          categories: finalCategories
+        }
       })
     }
-
-
-
-
   }
   render () {
 

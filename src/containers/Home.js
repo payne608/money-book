@@ -21,7 +21,7 @@ class Home extends Component {
   }
   componentDidMount () {
     this.props.actions.getInitalData()
-    console.log(this.props.data.items[1]);
+
   }
   onChangeDate = (year, month) => {
     this.props.actions.selectNewMonth(year, month)
@@ -41,7 +41,7 @@ class Home extends Component {
   render () {
     const { data } = this.props
     const { items, categories, currentDate, isLoading } = data
-    console.log(isLoading);
+
     const { tabView } = this.state
     //操作不可变值
     const itemsWithCategory = Object.keys(items).map(id => {
