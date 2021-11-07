@@ -4,10 +4,11 @@ import MonthPicker from '../components/MonthPicker.js'
 import withContext from '../withContext'
 import TotalPrice from '../components/TotalPrice'
 import PriceList from '../components/PriceList'
-import ViewTab from '../components/ViewTab'
+import { Tabs, Tab } from '../components/Tabs'
 import CreateBtn from '../components/CreateBtn'
 import logo from '../logo.svg'
 import Loader from '../components/Loader'
+import Ionicon from 'react-ionicons'
 //方便拓展，这里做成一个数组，并且重构ViewTab组件
 const tabsView = [LIST_VIEW, CHART_VIEW]
 
@@ -26,12 +27,17 @@ class Home extends Component {
     this.props.actions.selectNewMonth(year, month)
   }
   modifyItem = (item) => {
-    this.history.push(`/edit:${item.id}`)
+    this.props.history.push(`/edit/${item.id}`)
   }
   deleteItem = (item) => {
     this.props.actions.deleteItem(item)
   }
   handleClick = () => { this.props.history.push('/create') }
+  changeView = (index) => {
+    this.setState({
+      tabsView: tabsView[index]
+    })
+  }
   render () {
     const { data } = this.props
     const { items, categories, currentDate, isLoading } = data
@@ -80,12 +86,26 @@ class Home extends Component {
           {isLoading && <Loader />}
           {!isLoading &&
             <React.Fragment>
-              <ViewTab activeTab={this.state.tabView}
-                onTabChange={(value) => {
-                  this.setState({
-                    tabView: value
-                  })
-                }}></ViewTab>
+              <Tabs activeIndex={0} onTabChange={this.changeView}>
+                <Tab>
+                  <Ionicon
+                    className="rounded-circle mr-2"
+                    fontSize="25px"
+                    color={Colors.blue}
+                    icon='ios-paper'
+                  />
+                  列表模式
+                </Tab>
+                <Tab>
+                  <Ionicon
+                    className="rounded-circle mr-2"
+                    fontSize="25px"
+                    color={Colors.blue}
+                    icon='ios-pie'
+                  />
+                  图表模式
+                </Tab>
+              </Tabs>
               <CreateBtn onClick={this.handleClick}></CreateBtn>
               {
                 tabView === LIST_VIEW && itemsWithCategory.length > 0 &&

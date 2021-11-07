@@ -53,8 +53,8 @@ class App extends React.Component {
         })
         return items
       }),
-      deleteItem: withLoading((item) => {
-        axios.delete(`/items?id=${item.id}`)
+      deleteItem: withLoading(async (item) => {
+        // await axios.delete(`/items/${item.id}`)
         const itemsCopy = JSON.parse(JSON.stringify(this.state.items))
         delete itemsCopy[item.id]
         this.setState({
