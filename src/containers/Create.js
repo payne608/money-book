@@ -40,7 +40,19 @@ class Create extends Component {
       selectedTab: tabsText[index]
     })
   }
+  selectCategory = (category) => {
+    this.setState({
+      selectedCategory: category
+    })
+  }
   render () {
+    const { selectedTab, selectedCategory, validationPassed } = this.state
+    const tabIndex = tabsText.findIndex(text => text === selectedTab)
+    const { data, actions } = this.props
+    const categories = data.categories
+    const filterCategories = Object.keys(categories)
+      .map(id => categories[id])
+      .filter(item => item.type === selectedTab)
 
     return (
       <div className="create-page py-3 px-3 rounded mt-3" style={{ background: '#fff' }}>
@@ -56,9 +68,9 @@ class Create extends Component {
           </Tab>
         </Tabs>
         <CategorySelect
-          categories={this.filterCategories}
-          selectedCategory={this.selectCategory}
-          onSelectCategory={this.onSelectCategory}></CategorySelect>
+          categories={filterCategories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={this.selectCategory}></CategorySelect>
       </div>
     )
   }

@@ -86,6 +86,7 @@ class App extends React.Component {
         const finaEditItem = editItem ? editItem.data : items[id]
         const finalCategories = fetchedCategories ? flatternArr(fetchedCategories.data) : categories
         this.setState({
+          categories: finalCategories,
           isLoading: false
         })
 
