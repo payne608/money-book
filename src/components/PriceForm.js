@@ -43,7 +43,7 @@ class PriceForm extends Component {
         //有id的则为修改
         if (editMode) {
           //通过editMode区分提交和修改
-          onFormSubmit({ title, price, date }, editMode)
+          onFormSubmit({ id: item.id, title, price, date }, editMode)
         } else {
           //无id的为创建
           onFormSubmit({ title, price, date }, editMode)

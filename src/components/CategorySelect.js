@@ -7,6 +7,7 @@ class CategorySelect extends Component {
   render () {
     const { categories, selectedCategory, onSelectCategory } = this.props
     const selectedCategoryId = selectedCategory && selectedCategory.id
+
     return (
       <div className="category-select-component">
         <div className="row">

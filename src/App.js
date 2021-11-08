@@ -124,11 +124,14 @@ class App extends React.Component {
         return newItem.data
       }),
       updateItem: withLoading(async (item, updatedCategoryId) => {
+        const parsedDate = parseToYearAndMonth(item.date)
         const modifiedItem = {
           ...item,
           cid: updatedCategoryId,
-          timestamp: new Date(item.date).getTime()
+          timestamp: new Date(item.date).getTime(),
+          monthCategory: `${parsedDate.year}-${parsedDate.month}`
         }
+        console.log(modifiedItem);
         const updatedItem = await axios.put(`/items/${modifiedItem.id}`, modifiedItem)
         return updatedItem.data
       })

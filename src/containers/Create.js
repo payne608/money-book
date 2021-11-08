@@ -47,6 +47,7 @@ class Create extends Component {
     })
   }
   submitForm = (data, isEditMode) => {
+
     //这里是最终执行位置，在这里卡住不符合要求的值即可
     if (!this.state.selectedCategory) {
       this.setState({
@@ -54,11 +55,15 @@ class Create extends Component {
       })
       return
     }
+
     if (!isEditMode) {
       // create
+
       //成功后再跳回
+
       this.props.actions.createItem(data, this.state.selectedCategory.id).then(this.navigateToHome)
     } else {
+
       // update 
       this.props.actions.updateItem(data, this.state.selectedCategory.id).then(this.navigateToHome)
     }
