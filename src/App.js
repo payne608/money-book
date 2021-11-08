@@ -85,15 +85,52 @@ class App extends React.Component {
         //取到了分两种情况，app.js中已经取到和通过Create.js发送网络请求得到
         const finaEditItem = editItem ? editItem.data : items[id]
         const finalCategories = fetchedCategories ? flatternArr(fetchedCategories.data) : categories
+        //这里也可以分类讨论，如果有id则为编辑模式，需要传items，并替换对应的item项，
+        //传入items是为了items[id]可以取到对应的值
+        //完成本地直接更新
+        //如果没有id则为创建模式，不用item也可以
         this.setState({
           categories: finalCategories,
-          isLoading: false
+          isLoading: false,
+          items: { [id]: finaEditItem }
         })
 
         return {
           editItem: finaEditItem,
           categories: finalCategories
         }
+      }),
+      createItem: withLoading(async (data, categoryId) => {
+        // {
+        //   "title": "新的吃饭",
+        //   "price": 2000,
+        //   "date": "2021-11-15",
+        //   "monthCategory": "2021-11",
+        //   "id": "_qmatbbw11",
+        //   "cid": "6",
+        //   "timestamp": 1542896269187
+        // },
+        const newId = ID()
+        const parsedDate = parseToYearAndMonth(data.date)
+        data.monthCategory = `${parsedDate.year}-${parsedDate.month}`
+        data.timestamp = new Date(data.date).getTime()
+        const newItem = await axios.post('/items', { ...data, id: newId, cid: categoryId })
+        //这里不写items也可以因为先执行createItem再跳回后再componentDidMount中重新请求数据，
+        //除非后台数据刷新不及时或者keep-alive后导致前后端数据不一致的情况
+        // this.setState({
+        //   items: { ...this.state.items, [newId]: newItem.data },
+        //   isLoading: false,
+        // })
+        return newItem.data
+      }),
+      updateItem: withLoading(async (item, updatedCategoryId) => {
+        const modifiedItem = {
+          ...item,
+          cid: updatedCategoryId,
+          timestamp: new Date(item.date).getTime()
+        }
+        const updatedItem = await axios.put(`/items/${modifiedItem.id}`, modifiedItem)
+        return updatedItem.data
       })
     }
   }
