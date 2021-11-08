@@ -1,23 +1,26 @@
 {
   "files": {
-    "main.css": "/money-book/static/css/main.a617e044.chunk.css",
-    "main.js": "/money-book/static/js/main.e5307189.chunk.js",
-    "main.js.map": "/money-book/static/js/main.e5307189.chunk.js.map",
-    "runtime-main.js": "/money-book/static/js/runtime-main.c50bc60c.js",
-    "runtime-main.js.map": "/money-book/static/js/runtime-main.c50bc60c.js.map",
-    "static/js/2.c078e9e7.chunk.js": "/money-book/static/js/2.c078e9e7.chunk.js",
-    "static/js/2.c078e9e7.chunk.js.map": "/money-book/static/js/2.c078e9e7.chunk.js.map",
-    "static/js/3.7ca5db85.chunk.js": "/money-book/static/js/3.7ca5db85.chunk.js",
-    "static/js/3.7ca5db85.chunk.js.map": "/money-book/static/js/3.7ca5db85.chunk.js.map",
+    "main.css": "/money-book/static/css/main.26472f71.chunk.css",
+    "main.js": "/money-book/static/js/main.ca7b831c.chunk.js",
+    "main.js.map": "/money-book/static/js/main.ca7b831c.chunk.js.map",
+    "runtime-main.js": "/money-book/static/js/runtime-main.ee86a079.js",
+    "runtime-main.js.map": "/money-book/static/js/runtime-main.ee86a079.js.map",
+    "static/css/2.bd932d36.chunk.css": "/money-book/static/css/2.bd932d36.chunk.css",
+    "static/js/2.32268b41.chunk.js": "/money-book/static/js/2.32268b41.chunk.js",
+    "static/js/2.32268b41.chunk.js.map": "/money-book/static/js/2.32268b41.chunk.js.map",
+    "static/js/3.f74f2a02.chunk.js": "/money-book/static/js/3.f74f2a02.chunk.js",
+    "static/js/3.f74f2a02.chunk.js.map": "/money-book/static/js/3.f74f2a02.chunk.js.map",
     "index.html": "/money-book/index.html",
-    "static/css/main.a617e044.chunk.css.map": "/money-book/static/css/main.a617e044.chunk.css.map",
-    "static/js/2.c078e9e7.chunk.js.LICENSE.txt": "/money-book/static/js/2.c078e9e7.chunk.js.LICENSE.txt",
+    "static/css/2.bd932d36.chunk.css.map": "/money-book/static/css/2.bd932d36.chunk.css.map",
+    "static/css/main.26472f71.chunk.css.map": "/money-book/static/css/main.26472f71.chunk.css.map",
+    "static/js/2.32268b41.chunk.js.LICENSE.txt": "/money-book/static/js/2.32268b41.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/money-book/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.c50bc60c.js",
-    "static/js/2.c078e9e7.chunk.js",
-    "static/css/main.a617e044.chunk.css",
-    "static/js/main.e5307189.chunk.js"
+    "static/js/runtime-main.ee86a079.js",
+    "static/css/2.bd932d36.chunk.css",
+    "static/js/2.32268b41.chunk.js",
+    "static/css/main.26472f71.chunk.css",
+    "static/js/main.ca7b831c.chunk.js"
   ]
 }
