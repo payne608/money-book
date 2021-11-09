@@ -1,4 +1,4 @@
-name: Vuepress CI
+name: moneyBook CI
 on:
   # 监听 PUSH 操作
   push:
