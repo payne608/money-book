@@ -97,7 +97,7 @@ class Create extends Component {
             支出
           </Tab>
           <Tab>
-            收入测试
+            收入
           </Tab>
         </Tabs>
         <CategorySelect
