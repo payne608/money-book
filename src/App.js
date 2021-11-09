@@ -22,7 +22,7 @@ class App extends React.Component {
     const withLoading = (cb) => {
       return (...args) => {
         this.setState({
-          isLoading: true
+          isLoading: false
         })
         return cb(...args)
       }
