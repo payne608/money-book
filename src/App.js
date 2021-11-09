@@ -114,14 +114,14 @@ class App extends React.Component {
         const parsedDate = parseToYearAndMonth(data.date)
         data.monthCategory = `${parsedDate.year}-${parsedDate.month}`
         data.timestamp = new Date(data.date).getTime()
-        const newItem = await axios.post('/items', { ...data, id: newId, cid: categoryId })
+        // const newItem = await axios.post('/items', { ...data, id: newId, cid: categoryId })
         //这里不写items也可以因为先执行createItem再跳回后再componentDidMount中重新请求数据，
         //除非后台数据刷新不及时或者keep-alive后导致前后端数据不一致的情况
         // this.setState({
         //   items: { ...this.state.items, [newId]: newItem.data },
         //   isLoading: false,
         // })
-        return newItem.data
+        // return newItem.data
       }),
       updateItem: withLoading(async (item, updatedCategoryId) => {
         const parsedDate = parseToYearAndMonth(item.date)
@@ -132,8 +132,8 @@ class App extends React.Component {
           monthCategory: `${parsedDate.year}-${parsedDate.month}`
         }
         console.log(modifiedItem);
-        const updatedItem = await axios.put(`/items/${modifiedItem.id}`, modifiedItem)
-        return updatedItem.data
+        // const updatedItem = await axios.put(`/items/${modifiedItem.id}`, modifiedItem)
+        // return updatedItem.data
       })
     }
   }

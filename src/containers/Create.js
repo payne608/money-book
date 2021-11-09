@@ -70,7 +70,7 @@ class Create extends Component {
     //后台出现错误，都更新失败了也跳回
     this.props.history.push('/')
   }
-  cancelSubmit () {
+  cancelSubmit = () => {
     this.props.history.push('/')
   }
   navigateToHome = () => {

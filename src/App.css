@@ -37,7 +37,7 @@ a[href="#"], a[href="#0"] /* Common patterns for the <a> element used as a butto
 }
 @media (max-width: 480px) {
   .sm{
-    font-size: 0.1rem;
+    font-size: 12px;
   }
   .no-padding{
     padding: 0 !important

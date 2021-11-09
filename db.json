@@ -119,11 +119,11 @@
     {
       "id": "_qryggm533",
       "title": "请别人喝茶",
-      "price": 300,
+      "price": 301,
       "date": "2021-11-15",
-      "monthCategory": "2021-11",
       "cid": "3",
-      "timestamp": 1636934400000
+      "timestamp": 1636934400000,
+      "monthCategory": "2021-11"
     },
     {
       "title": "饭局",
@@ -215,7 +215,7 @@
     {
       "id": "_l3kn1ybaz",
       "title": "鸡公煲",
-      "price": 50,
+      "price": 20,
       "date": "2021-11-04",
       "cid": "2",
       "timestamp": 1635984000000,
