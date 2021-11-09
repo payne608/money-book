@@ -1,0 +1,29 @@
+name: Vuepress CI
+on:
+  # 监听 PUSH 操作
+  push:
+    branches:
+      # MAIN 分支，也可以改成其他分支
+      - master
+jobs:
+  build:
+    runs-on: Ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.15.0'
+      - name: INSTALL
+        run: npm install
+      - name: BUILD
+        run: npm run build
+      - name: DEPOLY
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.MONEY_BOOK }} # 密钥
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: 'build' # 将要复制到云服务器的静态文件夹
+          REMOTE_HOST: '1.116.225.187' # 云服务器公网地址
+          REMOTE_USER: 'root' # 服务器用户名
+          TARGET: '/home/deploy/node_money-book_server' # 打包后的文件夹将放在目录
