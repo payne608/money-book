@@ -9,9 +9,46 @@ import CreateBtn from '../components/CreateBtn'
 import logo from '../logo.svg'
 import Loader from '../components/Loader'
 import Ionicon from 'react-ionicons'
+import PieChart from '../components/PieChart'
+
+
+//Colors转为数组
+const colorsArr = Object.keys(Colors).map(item => Colors[item])
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+
+};
+
 //方便拓展，这里做成一个数组，并且重构ViewTab组件
 const tabsView = [LIST_VIEW, CHART_VIEW]
+const generateChartDataByCategory = (items, type = TYPE_OUTCOME) => {
+  //为减小时间复杂度这里使用map，然后遍历一遍items即可
+  let categoryMap = {}
+  items.filter(item => item.category.type === type).forEach(item => {
+    if (categoryMap[item.cid]) {
+      //转成数字*1
+      categoryMap[item.cid].value += item.price * 1
+      categoryMap[item.cid].items = [...categoryMap[item.cid].items, item.id]
+    } else {
+      categoryMap[item.cid] = {
+        name: item.category.name,
+        value: item.price * 1,
+        items: [item.id]
+      }
+    }
+  })
 
+  return Object.keys(categoryMap).map(id => {
+    return categoryMap[id]
+  })
+
+
+
+}
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -34,10 +71,12 @@ class Home extends Component {
   }
   handleClick = () => { this.props.history.push('/create') }
   changeView = (index) => {
+    console.log(index);
     this.setState({
-      tabsView: tabsView[index]
+      tabView: tabsView[index]
     })
   }
+
   render () {
     const { data } = this.props
     const { items, categories, currentDate, isLoading } = data
@@ -56,7 +95,8 @@ class Home extends Component {
         totalIncome += item.price
       }
     })
-
+    const chartOutcomDataByCategory = generateChartDataByCategory(itemsWithCategory, TYPE_OUTCOME)
+    const chartIncomeDataByCategory = generateChartDataByCategory(itemsWithCategory, TYPE_INCOME)
     return (
       <React.Fragment>
         <div className="App-header">
@@ -123,9 +163,11 @@ class Home extends Component {
               }
               {
                 tabView === CHART_VIEW &&
-                <div className="h1" >
-                  这里是图表区域
-                </div>
+                <React.Fragment>
+                  <PieChart title="本月支出" categoryData={chartOutcomDataByCategory} />
+                  <PieChart title="本月收入" categoryData={chartIncomeDataByCategory} />
+                </React.Fragment>
+
               }
             </React.Fragment>
           }
