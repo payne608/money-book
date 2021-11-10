@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Ionicon from 'react-ionicons'
+import { Colors } from '../utility'
 
 const CreateBtn = ({ onClick }) => (
   <button
-    className="btn btn-primary btn-block d-flex justify-content-center align-items-center"
+    className="btn btn-block d-flex justify-content-center align-items-center"
     onClick={(e) => { onClick() }}
+    style={{ backgroundColor: Colors.blue }}
   >
     <Ionicon
       className="rounded-circle"

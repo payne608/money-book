@@ -11,18 +11,6 @@ import Loader from '../components/Loader'
 import Ionicon from 'react-ionicons'
 import PieChart from '../components/PieChart'
 
-
-//Colors转为数组
-const colorsArr = Object.keys(Colors).map(item => Colors[item])
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-
-};
-
 //方便拓展，这里做成一个数组，并且重构ViewTab组件
 const tabsView = [LIST_VIEW, CHART_VIEW]
 const generateChartDataByCategory = (items, type = TYPE_OUTCOME) => {
@@ -146,7 +134,10 @@ class Home extends Component {
                   图表模式
                 </Tab>
               </Tabs>
-              <CreateBtn onClick={this.handleClick}></CreateBtn>
+              <CreateBtn
+                onClick={this.handleClick}
+
+              ></CreateBtn>
               {
                 tabView === LIST_VIEW && itemsWithCategory.length > 0 &&
                 <PriceList
