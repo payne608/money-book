@@ -46,8 +46,8 @@ export const ID = () => {
 }
 
 export const Colors = {
-  blue: '#0AAA92',
-  deepBlue: '#02896B',
+  blue: '#77C1C2',
+  deepBlue: '#61B5DA',
   green: '#A7D5B8',
   red: '#B34631',
   gray: '#555',
