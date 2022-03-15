@@ -24,6 +24,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.MONEY_BOOK }} # 密钥
           ARGS: '-rltgoDzvO --delete'
           SOURCE: 'build' # 将要复制到云服务器的静态文件夹
-          REMOTE_HOST: '1.116.225.187' # 云服务器公网地址
+          REMOTE_HOST: '124.223.213.15' # 云服务器公网地址
           REMOTE_USER: 'root' # 服务器用户名
           TARGET: '/home/deploy/node_money-book_server' # 打包后的文件夹将放在目录
